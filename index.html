@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, inital-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Cash Register Project</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div id="change-due"><h1>change due</h1></div>
+    <form id="input">
+    <label for="cash">Cash</label><br>
+    <input type="text" id="cash" name="cash"></input>
+    <button id="purchase-btn">Purchase</button>
+    </form>
+    <div id="register-container" class="register-container">
+      <div id="total-due-screen" class="total-due-screen">
+        Total: $<span id="total-due"></span>
+      </div>
+      <div id="register-keypad" class="register-keypad"></div>
+    </div>
+
+    <button id="register-drawer" type="button" class="register-drawer">
+      <div id="cash-drawer" class="cash-drawer">
+        <div id="cash" class="cash-container">
+          <div id="dollar" class="dollar">
+            <div class="dollar-symbols">
+              <span class="dollar-amount">$1</span
+              ><span class="dollar-amount">$1</span>
+            </div>
+            <div id="dollar-face" class="dollar-face">
+              <span id="one-dollar-amount"></span>
+            </div>
+            <div class="dollar-symbols">
+              <span class="dollar-amount">$1</span
+              ><span class="dollar-amount">$1</span>
+            </div>
+          </div>
+          <div id="dollar" class="dollar">
+            <div class="dollar-symbols">
+              <span class="dollar-amount">$5</span
+              ><span class="dollar-amount">$5</span>
+            </div>
+            <div id="dollar-face" class="dollar-face">
+              <span id="five-dollar-amount"></span>
+            </div>
+            <div class="dollar-symbols">
+              <span class="dollar-amount">$5</span>
+              <span class="dollar-amount">$5</span>
+            </div>
+          </div>
+          <div id="dollar" class="dollar">
+            <div class="dollar-symbols">
+              <span class="dollar-amount">$10</span
+              ><span class="dollar-amount">$10</span>
+            </div>
+            <div id="dollar-face" class="dollar-face">
+              <span id="ten-dollar-amount"></span>
+            </div>
+            <div class="dollar-symbols">
+              <span class="dollar-amount">$10</span
+              ><span class="dollar-amount">$10</span>
+            </div>
+          </div>
+          <div id="dollar" class="dollar">
+            <div class="dollar-symbols">
+              <span class="dollar-amount">$20</span
+              ><span class="dollar-amount">$20</span>
+            </div>
+            <div id="dollar-face" class="dollar-face">
+              <span id="twenty-dollar-amount"></span>
+            </div>
+            <div class="dollar-symbols">
+              <span class="dollar-amount">$20</span
+              ><span class="dollar-amount">$20</span>
+            </div>
+          </div>
+          <div id="dollar" class="dollar">
+            <div class="dollar-symbols">
+              <span class="dollar-amount">$100</span>
+              <span class="dollar-amount">$100</span>
+            </div>
+            <div id="dollar-face" class="dollar-face">
+              <span id="hundred-dollar-amount"></span>
+            </div>
+            <div class="dollar-symbols">
+              <span class="dollar-amount">$100</span
+              ><span class="dollar-amount">$100</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="change" class="change-container">
+          <div class="change" style="background: #b87333">
+            <div class="change-rows">
+              <div class="change-text">
+                <span>pennies</span><span id="pennies-total"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="change">
+            <div class="change-rows">
+              <div class="change-text">
+                <span>nickels</span><span id="nickels-total"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="change">
+            <div class="change-rows">
+              <div class="change-text">
+                <span>dimes</span><span id="dimes-total"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="change">
+            <div class="change-rows">
+              <div class="change-text">
+                <span>quarters</span><span id="quarters-total"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span id="drawer-text" class="drawer-text">Press to open</span>
+    </button>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,202 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.register-container {
+  width: 500px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.total-due-screen {
+  position: relative;
+  left: 25%;
+  font-family: "DotGothic16", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: ridge grey 10px;
+  border-radius: 10px;
+  height: 50px;
+  width: 50%;
+  background: teal;
+}
+
+.register-keypad {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 20px 20px 0px 0px;
+  border: solid grey 10px;
+  border-bottom: none;
+  height: 300px;
+  width: 100%;
+  background: grey;
+}
+
+.register-screen {
+  border-radius: 0px 20px 0px 0px;
+  border-top: solid grey 10px;
+  border-right: solid grey 10px;
+  width: 50%;
+  background: teal;
+}
+
+.register-drawer {
+  position: relative;
+  border-radius: 0px 0px 20px 20px;
+  border: solid grey 10px;
+  border-top: none;
+  cursor: pointer;
+  height: 100px;
+  width: 500px;
+  background: #a9a9a9;
+}
+
+.translate-open {
+  transition-duration: 1.5s;
+  transform: translate(0px, 190px);
+}
+.translate-closed {
+  transition-duration: 1.5s;
+  transform: translate(0px, 0px);
+}
+
+.drawer-text {
+  font-size: 36px;
+  border: 10px inset grey;
+}
+
+.register-button {
+  width: 25%;
+  height: 10%;
+  background: #5e5a5a;
+  border: solid grey 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cash-drawer {
+  position: absolute;
+  bottom: 90px;
+  right: -10px;
+  z-index: -1;
+  width: 500px;
+  background: black;
+  display: flex;
+  flex-direction: column;
+}
+
+.cash-container {
+  display: flex;
+  width: 100%;
+}
+
+.change-container {
+  display: flex;
+  width: 100%;
+}
+
+.dollar {
+  height: 150px;
+  width: 100px;
+  background: green;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: solid black;
+}
+
+.dollar-symbols {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dollar-amount {
+  color: black;
+  font-weight: bold;
+  /*
+  -webkit-text-stroke: 1px black;
+  */
+  rotate: 90deg;
+  font-size: 1rem;
+  /*
+  looks like i should have just rotated the entire dollar
+  rotating the text is causing spacing problems
+  and padding is a bad fix
+  */
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 10px;
+}
+
+.dollar-face {
+  color: darkgreen;
+  font-weight: bold;
+  -webkit-text-stroke: 1px black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  margin: auto;
+  height: 60px;
+  width: 75px;
+  background: yellowgreen;
+  border-radius: 50%;
+
+  border: 1px solid black;
+
+  vertical-align: middle;
+  font-family: sarif;
+}
+
+#one-dollar-amount {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.change {
+  border: solid black;
+  width: 25%;
+  height: 40px;
+  background: grey;
+  column-count: 18;
+  column-rule: 1px solid black;
+  column-gap: 1px;
+  position: relative;
+  text-align: center;
+}
+
+.change-rows {
+  width: 0px;
+  height: 100px;
+}
+
+.change-text {
+  color: black;
+  font-weight: bold;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: 10px 0px 5px #33b873, -10px 0px 5px #33b873, 0px 10px 5px #33b873,
+    0px -10px 5px #33b873;
+}
