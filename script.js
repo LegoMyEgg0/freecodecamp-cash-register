@@ -1,4 +1,4 @@
-const changeDueHTML = document.getElementById("change-due")
+const changeDueHTML = document.getElementById("change-due");
 // register
 const totalDue = document.getElementById("total-due");
 const totalDueScreen = document.getElementById("total-due-screen");
@@ -129,13 +129,33 @@ const addTextToButtons = () => {
 };
 
 //main function -------------------------------
-const returnCashFromCid = (cash) => {
-  console.log("return cash", cash, "total", totalCid);
-  let changeBack = 0;
-  for(let i = cid.length - 1; i >= 0; i--) {
-    console.log(i, cid[i], cash)
-    console.log(Math.round(cid[i][1] * 100), "-", currencyValue[cid[i][0]], "till", Math.round(cid[i][1] * 100), "<", currencyValue[cid[i][0]], "||", changeBack, "===", cash)
-   // while(currencyValue[cid[i][0]] < cash &&) {}
+const returnCashFromCid = (changeDue) => {
+  console.log("return cash", changeDue, "total", totalCid);
+  let returnStr = "";
+  for (let i = cid.length - 1; i >= 0; i--) {
+    let change = 0;
+    console.log(i, cid[i], changeDue);
+    if (currencyValue[cid[i][0]] > changeDue) {
+      console.log(
+        currencyValue[cid[i][0]],
+        changeDue,
+        currencyValue[cid[i][0]] > changeDue
+      );
+      continue;
+    } else {
+      console.log("test", currencyValue[cid[i][0]], changeDue);
+      //cid[i][1] * 100 - currencyValue[cid[i][0]]
+      while (currencyValue[cid[i][0]] <= changeDue && cid[i][1] > 0) {
+        cid[i][1] = Math.round(
+          (cid[i][1] * 100 - currencyValue[cid[i][0]]) / 100
+        );
+        changeDue -= currencyValue[cid[i][0]];
+        change += currencyValue[cid[i][0]];
+        console.log("cid", cid[i][1]);
+      }
+    }
+    console.log("change string", cid[i][0] + " " + change / 100);
+    //console.log( Math.round(cid[i][1] * 100), "-", currencyValue[cid[i][0]], "till", Math.round(cid[i][1] * 100), "<", currencyValue[cid[i][0]], "||", changeBack, "===", cash );
   }
 };
 
@@ -145,16 +165,16 @@ input.addEventListener("submit", (e) => {
 
   const cashInt = Number(cash.value) * 100;
   const changeDue = cashInt - priceInt;
-  console.log("due",changeDue,"------ hello")
+  console.log("due", changeDue, "------ hello");
 
   if (Number.isNaN(cashInt)) {
     console.log("nan");
     totalDueScreen.textContent = "Not Valid";
   } else if (cashInt < priceInt) {
-    console.log(cashInt, priceInt, totalCid)
+    console.log(cashInt, priceInt, totalCid);
     alert("Customer does not have enough money to purchase the item");
-  } else if(cashInt === priceInt) {
-changeDueHTML.innerHTML += `<p>No change due - customer paid with exact cash</p>`
+  } else if (cashInt === priceInt) {
+    changeDueHTML.innerHTML += `<p>No change due - customer paid with exact cash</p>`;
   } else {
     returnCashFromCid(changeDue);
   }
