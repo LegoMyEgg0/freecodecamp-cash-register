@@ -146,15 +146,20 @@ const returnCashFromCid = (changeDue) => {
       console.log("test", currencyValue[cid[i][0]], changeDue);
       //cid[i][1] * 100 - currencyValue[cid[i][0]]
       while (currencyValue[cid[i][0]] <= changeDue && cid[i][1] > 0) {
-        cid[i][1] = Math.round(
-          (cid[i][1] * 100 - currencyValue[cid[i][0]]) / 100
+        cid[i][1] = parseFloat(
+          ((cid[i][1] * 100 - currencyValue[cid[i][0]]) / 100).toFixed(2)
         );
         changeDue -= currencyValue[cid[i][0]];
         change += currencyValue[cid[i][0]];
         console.log("cid", cid[i][1]);
       }
     }
-    console.log("change string", cid[i][0] + " " + change / 100);
+    console.log(
+      "change string",
+      cid[i][0] + " " + change / 100,
+      "cid",
+      cid[i][1]
+    );
     //console.log( Math.round(cid[i][1] * 100), "-", currencyValue[cid[i][0]], "till", Math.round(cid[i][1] * 100), "<", currencyValue[cid[i][0]], "||", changeBack, "===", cash );
   }
 };
