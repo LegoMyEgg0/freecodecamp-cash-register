@@ -104,7 +104,7 @@ const keypadText = [
   "cash",
 ];
 
-let totalCid = cid.reduce((acc, val) => acc + Math.round(val[1] * 100), 0);
+let totalCid;
 let price = 1.87;
 let priceInt = price * 100;
 
@@ -131,7 +131,7 @@ const addTextToButtons = () => {
 //main function -------------------------------
 const returnCashFromCid = (changeDue) => {
   console.log("return cash", changeDue, "total", totalCid);
-  let returnStr = "";
+  let changeBackStr = "";
   for (let i = cid.length - 1; i >= 0; i--) {
     let change = 0;
     console.log(i, cid[i], changeDue);
@@ -160,7 +160,18 @@ const returnCashFromCid = (changeDue) => {
       "cid",
       cid[i][1]
     );
+    if (change) {
+      changeBackStr += `<p>${cid[i][0]}: $${change / 100}</p>`;
+    }
     //console.log( Math.round(cid[i][1] * 100), "-", currencyValue[cid[i][0]], "till", Math.round(cid[i][1] * 100), "<", currencyValue[cid[i][0]], "||", changeBack, "===", cash );
+  }
+  console.log(changeBackStr, changeDue, totalCid);
+  if (changeDue) {
+    // should probably make a copy of cid so that funds are not taken out if this happens
+    return "Status: INSUFFICIENT_FUNDS";
+  } else {
+    addAmountToDrawer();
+    return `<p>Status: OPEN</p>${changeBackStr}`;
   }
 };
 
@@ -168,6 +179,7 @@ const returnCashFromCid = (changeDue) => {
 input.addEventListener("submit", (e) => {
   e.preventDefault();
 
+  totalCid = cid.reduce((acc, val) => acc + Math.round(val[1] * 100), 0);
   const cashInt = Number(cash.value) * 100;
   const changeDue = cashInt - priceInt;
   console.log("due", changeDue, "------ hello");
@@ -179,9 +191,19 @@ input.addEventListener("submit", (e) => {
     console.log(cashInt, priceInt, totalCid);
     alert("Customer does not have enough money to purchase the item");
   } else if (cashInt === priceInt) {
-    changeDueHTML.innerHTML += `<p>No change due - customer paid with exact cash</p>`;
+    changeDueHTML.innerHTML = `<p>No change due - customer paid with exact cash</p>`;
+  } else if (totalCid < changeDue) {
+    console.log("total cid", totalCid);
+    changeDueHTML.innerHTML = `<p>Status: INSUFFICIENT_FUNDS</p>`;
+  } else if (totalCid === changeDue) {
+    // need to empty the cid when this is done
+    changeDueHTML.innerHTML = `<p>Status: CLOSED</p>${cid.reduceRight(
+      (acc, arr) => acc + `<p>${arr[0]}: $${arr[1]}</p>`,
+      ``
+    )}`;
   } else {
-    returnCashFromCid(changeDue);
+    changeDueHTML.innerHTML = returnCashFromCid(changeDue);
+    console.log(cid);
   }
 });
 
