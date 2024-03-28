@@ -56,11 +56,6 @@ let cid = [
   ["ONE HUNDRED", 100],
 ];
 
-/*
-const cidIntObj = {};
-cid.forEach(el => cidIntObj[el[0]] = Math.round(el[1] * 100));
-*/
-
 const keypadText = [
   "receipt on/off",
   "copy receipt",
@@ -163,7 +158,6 @@ const returnCashFromCid = (changeDue) => {
     if (change) {
       changeBackStr += `<p>${cid[i][0]}: $${change / 100}</p>`;
     }
-    //console.log( Math.round(cid[i][1] * 100), "-", currencyValue[cid[i][0]], "till", Math.round(cid[i][1] * 100), "<", currencyValue[cid[i][0]], "||", changeBack, "===", cash );
   }
   console.log(changeBackStr, changeDue, totalCid);
   if (changeDue) {
@@ -184,10 +178,7 @@ input.addEventListener("submit", (e) => {
   const changeDue = cashInt - priceInt;
   console.log("due", changeDue, "------ hello");
 
-  if (Number.isNaN(cashInt)) {
-    console.log("nan");
-    totalDueScreen.textContent = "Not Valid";
-  } else if (cashInt < priceInt) {
+  if (cashInt < priceInt) {
     console.log(cashInt, priceInt, totalCid);
     alert("Customer does not have enough money to purchase the item");
   } else if (cashInt === priceInt) {
@@ -196,11 +187,12 @@ input.addEventListener("submit", (e) => {
     console.log("total cid", totalCid);
     changeDueHTML.innerHTML = `<p>Status: INSUFFICIENT_FUNDS</p>`;
   } else if (totalCid === changeDue) {
-    // need to empty the cid when this is done
     changeDueHTML.innerHTML = `<p>Status: CLOSED</p>${cid.reduceRight(
       (acc, arr) => acc + `<p>${arr[0]}: $${arr[1]}</p>`,
       ``
     )}`;
+    cid.forEach((amount) => (amount[1] = 0));
+    addAmountToDrawer();
   } else {
     changeDueHTML.innerHTML = returnCashFromCid(changeDue);
     console.log(cid);

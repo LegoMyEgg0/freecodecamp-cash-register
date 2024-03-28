@@ -11,6 +11,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  color: white;
 }
 
 .register-container {
@@ -20,6 +21,11 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.total-due-screen,
+.register-button {
+  color: black;
 }
 
 .total-due-screen {
@@ -166,11 +172,6 @@ body {
 
   vertical-align: middle;
   font-family: sarif;
-}
-
-#one-dollar-amount {
-  display: table-cell;
-  vertical-align: middle;
 }
 
 .change {
