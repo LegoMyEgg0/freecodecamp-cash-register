@@ -31,6 +31,7 @@ const moneyInDrawer = {
   TWENTY: twentyDollar,
   "ONE HUNDRED": hundredDollar,
 };
+Object.freeze(moneyInDrawer);
 
 const currencyValue = {
   PENNY: 1,
@@ -43,6 +44,7 @@ const currencyValue = {
   TWENTY: 2000,
   "ONE HUNDRED": 10000,
 };
+Object.freeze(currencyValue);
 
 let cid = [
   ["PENNY", 1.01],
@@ -98,10 +100,9 @@ const keypadText = [
   ".",
   "cash",
 ];
+Object.freeze(keypadText);
 
-let totalCid;
 let price = 1.87;
-let priceInt = price * 100;
 
 // functions
 const addAmountToDrawer = () => {
@@ -125,43 +126,27 @@ const addTextToButtons = () => {
 
 //main function -------------------------------
 const returnCashFromCid = (changeDue) => {
-  console.log("return cash", changeDue, "total", totalCid);
   let changeBackStr = "";
+  const cidCopy = JSON.parse(JSON.stringify(cid));
   for (let i = cid.length - 1; i >= 0; i--) {
     let change = 0;
-    console.log(i, cid[i], changeDue);
     if (currencyValue[cid[i][0]] > changeDue) {
-      console.log(
-        currencyValue[cid[i][0]],
-        changeDue,
-        currencyValue[cid[i][0]] > changeDue
-      );
       continue;
     } else {
-      console.log("test", currencyValue[cid[i][0]], changeDue);
-      //cid[i][1] * 100 - currencyValue[cid[i][0]]
       while (currencyValue[cid[i][0]] <= changeDue && cid[i][1] > 0) {
         cid[i][1] = parseFloat(
           ((cid[i][1] * 100 - currencyValue[cid[i][0]]) / 100).toFixed(2)
         );
         changeDue -= currencyValue[cid[i][0]];
         change += currencyValue[cid[i][0]];
-        console.log("cid", cid[i][1]);
       }
     }
-    console.log(
-      "change string",
-      cid[i][0] + " " + change / 100,
-      "cid",
-      cid[i][1]
-    );
     if (change) {
       changeBackStr += `<p>${cid[i][0]}: $${change / 100}</p>`;
     }
   }
-  console.log(changeBackStr, changeDue, totalCid);
   if (changeDue) {
-    // should probably make a copy of cid so that funds are not taken out if this happens
+    cid = cidCopy;
     return "Status: INSUFFICIENT_FUNDS";
   } else {
     addAmountToDrawer();
@@ -173,18 +158,16 @@ const returnCashFromCid = (changeDue) => {
 input.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  totalCid = cid.reduce((acc, val) => acc + Math.round(val[1] * 100), 0);
+  const priceInt = price * 100;
+  const totalCid = cid.reduce((acc, val) => acc + Math.round(val[1] * 100), 0);
   const cashInt = Number(cash.value) * 100;
   const changeDue = cashInt - priceInt;
-  console.log("due", changeDue, "------ hello");
 
   if (cashInt < priceInt) {
-    console.log(cashInt, priceInt, totalCid);
     alert("Customer does not have enough money to purchase the item");
   } else if (cashInt === priceInt) {
     changeDueHTML.innerHTML = `<p>No change due - customer paid with exact cash</p>`;
   } else if (totalCid < changeDue) {
-    console.log("total cid", totalCid);
     changeDueHTML.innerHTML = `<p>Status: INSUFFICIENT_FUNDS</p>`;
   } else if (totalCid === changeDue) {
     changeDueHTML.innerHTML = `<p>Status: CLOSED</p>${cid.reduceRight(
@@ -195,7 +178,6 @@ input.addEventListener("submit", (e) => {
     addAmountToDrawer();
   } else {
     changeDueHTML.innerHTML = returnCashFromCid(changeDue);
-    console.log(cid);
   }
 });
 
@@ -212,7 +194,5 @@ drawer.addEventListener("click", () => {
 // function calls
 addAmountToDrawer();
 addTextToButtons();
-
-//
 
 totalDue.textContent = price;
